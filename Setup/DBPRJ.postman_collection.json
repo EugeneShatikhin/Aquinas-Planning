@@ -1,0 +1,586 @@
+{
+	"info": {
+		"_postman_id": "7e0c5607-bc6c-4164-84bc-1877383426ba",
+		"name": "DBPRJ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "root",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44398/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"root\",\r\n    \"firstname\": \"Evgeniy\",\r\n    \"lastname\": \"Shatikhin\",\r\n    \"info\": \"I am self-employed junior dev.\"\r\n}"
+						},
+						"url": {
+							"raw": "https://localhost:44398/register",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "groups",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44398/groups/list",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"list"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44398/groups/change?id=1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"change"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "view group",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44398/groups/view?ShowTill=2022-12-31T00:00:00",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"view"
+							],
+							"query": [
+								{
+									"key": "ShowTill",
+									"value": "2022-12-31T00:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\" : \"Test group\",\r\n    \"Description\" : \"i am demonstrating my course work\",\r\n    \"Credentials\" : \"4244197405628381;10/2022;781\"\r\n}"
+						},
+						"url": {
+							"raw": "https://localhost:44398/groups/new",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE GROUP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44398/groups/delete?id=1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "invite",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44398/groups/invite?username=evgen",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"invite"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "evgen"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "roles",
+			"item": [
+				{
+					"name": "new role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"My brand new role\",\r\n    \"weight\" : \"3\",\r\n    \"isAdmin\" : \"false\",\r\n    \"InviteUsers\" : \"true\",\r\n    \"MakeTask\" : \"true\",\r\n    \"CloseTask\" : \"false\",\r\n    \"SelfAssign\" : \"true\",\r\n    \"AssignOthers\" : \"true\",\r\n    \"CreateTag\" : \"true\",\r\n    \"AssignTag\" : \"true\",\r\n    \"Comment\" : \"true\"\r\n}"
+						},
+						"url": {
+							"raw": "https://localhost:44398/groups/group/role/new",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"group",
+								"role",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list roles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44398/groups/group/role/list",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"group",
+								"role",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assign role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44398/groups/group/role/assign?assignid=2&roleid=3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"group",
+								"role",
+								"assign"
+							],
+							"query": [
+								{
+									"key": "assignid",
+									"value": "2"
+								},
+								{
+									"key": "roleid",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "tasks",
+			"item": [
+				{
+					"name": "new task",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Go to mall\",\r\n    \"description\" : \"Buy milk\",\r\n    \"date_deadline\" : \"2021-12-31 23:59:56\"\r\n}"
+						},
+						"url": {
+							"raw": "https://localhost:44398/groups/group/task/new",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"group",
+								"task",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list tasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44398/groups/group/task/list",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"group",
+								"task",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assign users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"taskid\" : \"1\",\r\n    \"users\" : [\"1\", \"2\"]\r\n}"
+						},
+						"url": {
+							"raw": "https://localhost:44398/groups/group/task/assign_users",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"group",
+								"task",
+								"assign_users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assign roles",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"taskid\" : \"4\",\r\n    \"roles\" : [\"1\", \"2\", \"3\"]\r\n}"
+						},
+						"url": {
+							"raw": "https://localhost:44398/groups/group/task/assign_roles",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"group",
+								"task",
+								"assign_roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "view responsibles for task",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "admin;root",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44398/groups/group/task/view?taskid=1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44398",
+							"path": [
+								"groups",
+								"group",
+								"task",
+								"view"
+							],
+							"query": [
+								{
+									"key": "taskid",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,9 @@
+CREATE TABLE [dbo].[User_Role_{groupid}](
+[inner_id] [bigint] NOT NULL,
+[role_id] [int] NOT NULL,
+CONSTRAINT [PK_USER_ROLE_{groupid}] PRIMARY KEY CLUSTERED 
+([inner_id] ASC, [role_id] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]) ON [PRIMARY]
+ALTER TABLE [dbo].[User_Role_{groupid}]  WITH CHECK ADD  CONSTRAINT [user-roles_{groupid}] FOREIGN KEY([role_id])
+REFERENCES [dbo].[Roles_{groupid}] ([id]) ON DELETE CASCADE
+ALTER TABLE [dbo].[User_Role_{groupid}]  WITH CHECK ADD  CONSTRAINT [users-user-roles_{groupid}] FOREIGN KEY([inner_id])
+REFERENCES [dbo].[Users] ([inner_id]) ON DELETE CASCADE

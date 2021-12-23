@@ -1,0 +1,170 @@
+using System;
+using System.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Newtonsoft.Json;
+using AquinasCore.SQL;
+namespace AquinasCore.Models.DTO
+{
+    public enum Perms
+    {
+        isAdmin = 0,
+        InviteUsers = 1,
+        MakeTask = 2,
+        CloseTask = 3,
+        SelfAssign = 4,
+        AssignOthers = 5,
+        CreateTag = 6,
+        AssignTag = 7,
+        Comment = 8
+    }
+    // this class exists because i am noob at converting SQL bits to c# bools. dont use it outside of this file
+    public class RoleView
+    {
+        public int Id { get; set; }
+        public string name { get; set; }
+        public int weight { get; set; }
+        public bool isAdmin { get; set; }
+        public bool InviteUsers { get; set; }
+        public bool MakeTask { get; set; }
+        public bool CloseTask { get; set; }
+        public bool SelfAssign { get; set; }
+        public bool AssignOthers { get; set; }
+        public bool CreateTag { get; set; }
+        public bool AssignTag { get; set; }
+        public bool Comment { get; set; }
+        public RoleView(int id, string name, int weight, bool isAdmin, bool InviteUsers, bool MakeTask, bool CloseTask,
+            bool SelfAssign, bool AssignOthers, bool CreateTag, bool AssignTag, bool Comment)
+        {
+            this.Id = id;
+            this.name = name;
+            this.weight = weight;
+            this.isAdmin = isAdmin;
+            this.InviteUsers = InviteUsers;
+            this.MakeTask = MakeTask;
+            this.CloseTask = CloseTask;
+            this.SelfAssign = SelfAssign;
+            this.AssignOthers = AssignOthers;
+            this.CreateTag = CreateTag;
+            this.AssignTag = AssignTag;
+            this.Comment = Comment;
+        }
+    }
+    // this class is for returning it in task requests
+    public class RoleViewer
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public RoleViewer (int id, string name)
+        {
+            this.Id = id;
+            this.Name = name;
+        }
+    }
+    public class Role
+    {
+        public int Id { get; set; } = 0;
+        public string name { get; set; }
+        public int weight { get; set; }
+        public int isAdmin { get; set; }
+        public int InviteUsers { get; set; }
+        public int MakeTask { get; set; }
+        public int CloseTask { get; set; }
+        public int SelfAssign { get; set; }
+        public int AssignOthers { get; set; }
+        public int CreateTag { get; set; }
+        public int AssignTag { get; set; }
+        public int Comment { get; set; }
+        public Role() { }
+        public Role(int id, string name, int weight, int isAdmin, int InviteUsers, int MakeTask, int CloseTask,
+            int SelfAssign, int AssignOthers, int CreateTag, int AssignTag, int Comment)
+        {
+            this.Id = id;
+            this.name = name;
+            this.weight = weight;
+            this.isAdmin = isAdmin;
+            this.InviteUsers = InviteUsers;
+            this.MakeTask = MakeTask;
+            this.CloseTask = CloseTask;
+            this.SelfAssign = SelfAssign;
+            this.AssignOthers = AssignOthers;
+            this.CreateTag = CreateTag;
+            this.AssignTag = AssignTag;
+            this.Comment = Comment;
+        }
+        public Role(RoleView r)
+        {
+            this.Id = r.Id;
+            this.name = r.name;
+            this.weight = r.weight;
+            this.isAdmin = (r.isAdmin ? 1 : 0);
+            this.InviteUsers = (r.InviteUsers ? 1 : 0);
+            this.MakeTask = (r.MakeTask ? 1 : 0);
+            this.CloseTask = (r.CloseTask ? 1 : 0);
+            this.SelfAssign = (r.SelfAssign ? 1 : 0);
+            this.AssignOthers = (r.AssignOthers ? 1 : 0);
+            this.CreateTag = (r.CreateTag ? 1 : 0);
+            this.AssignTag = (r.AssignTag ? 1 : 0);
+            this.Comment = (r.Comment ? 1 : 0);
+        }
+        public static void GiveOwnerRole(long groupid, long adminid)
+        {
+            string sql = $"INSERT INTO User_Role_{groupid} VALUES ({adminid}, 2)";
+            DbWriter.Write(sql);
+        }
+        public static int Create(long groupid, Role r)
+        {
+            string sql = $"INSERT INTO Roles_{groupid} VALUES ('{r.name}', {r.weight}, {r.isAdmin}, " +
+                $"{r.InviteUsers}, {r.MakeTask}, {r.CloseTask}, {r.SelfAssign}, " +
+                $"{r.AssignOthers}, {r.CreateTag}, {r.AssignTag}, {r.Comment})";
+            DbWriter.Write(sql);
+            var role = GetOne(groupid, r.name);
+            return role.Id;
+        }
+        public static Role GetOne(long groupid, string name)
+        {
+            var role = Get(groupid);
+            return new Role(role.FirstOrDefault(t => t.name == name));
+        }
+        public static List<RoleView> Get(long groupid)
+        {
+            string sql = $"SELECT * FROM Roles_{groupid}";
+            var result = DbReader.Read(sql);
+            var roles = new List<RoleView>();
+            foreach (DataRow row in result.Rows)
+            {   
+                roles.Add(new RoleView((int)row[0], (string)row[1], (int)row[2], (bool)row[3], (bool)row[4], (bool)row[5], (bool)row[6],
+                    (bool)row[7], (bool)row[8], (bool)row[9], (bool)row[10], (bool)row[11]));
+            }
+            return roles;
+        }
+        public static bool IsAssigned(long assignid, long roleid, long groupid)
+        {
+            string sql = $"SELECT * FROM User_Role_{groupid} WHERE inner_id = {assignid} AND role_id = {roleid}";
+            if (DbReader.Read(sql).Rows.Count == 0) return false;
+            return true;
+        }
+        public static void Assign(long assignid, long roleid, long groupid)
+        {
+            if (IsAssigned(assignid, roleid, groupid)) return;
+            string sql = $"INSERT INTO User_Role_{groupid} VALUES ({assignid}, {roleid})";
+            DbWriter.Write(sql);
+        }
+    }
+    public static class Perm
+    {
+        public static bool IsAllowed(long userid, long groupid, Perms perm)
+        {
+            string permission = perm.ToString();
+            if (perm != Perms.isAdmin) permission = $"isAdmin, {perm}";
+            string sql = $"SELECT isAdmin, {permission} FROM Roles_{groupid} r JOIN User_Role ur ON ur.role_id = r.id WHERE ur.inner_id = {userid}";
+            var result = DbReader.Read(sql);
+            foreach (DataRow row in result.Rows)
+            {
+                if ((bool)row[0] || (bool)row[1]) return true;
+            }
+            return false;
+        }
+    }
+}

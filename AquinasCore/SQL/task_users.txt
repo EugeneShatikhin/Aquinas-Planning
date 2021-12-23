@@ -1,0 +1,9 @@
+CREATE TABLE [dbo].[Task_Users_{groupid}](
+[task_id] [bigint] NOT NULL,
+[user_id] [bigint] NOT NULL,
+CONSTRAINT [PK_TASK_USERS_{groupid}] PRIMARY KEY CLUSTERED 
+([task_id] ASC, [user_id] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]) ON [PRIMARY]
+ALTER TABLE [dbo].[Task_Users_{groupid}]  WITH CHECK ADD  CONSTRAINT [tasks-task-users_{groupid}] FOREIGN KEY([task_id])
+REFERENCES [dbo].[Tasks_{groupid}] ([task_id]) ON DELETE CASCADE
+ALTER TABLE [dbo].[Task_Users_{groupid}]  WITH CHECK ADD  CONSTRAINT [task-users_{groupid}] FOREIGN KEY([user_id])
+REFERENCES [dbo].[Users] ([inner_id]) ON DELETE CASCADE

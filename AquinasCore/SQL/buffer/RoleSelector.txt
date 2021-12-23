@@ -1,0 +1,1 @@
+SELECT * FROM ROLES r JOIN User_Role ur ON ur.role_id = r.id WHERE ur.inner_id = 3

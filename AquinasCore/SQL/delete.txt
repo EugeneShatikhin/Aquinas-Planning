@@ -1,0 +1,9 @@
+DELETE FROM Groups WHERE group_id = {groupid};
+DROP TABLE User_Role_{groupid};
+DROP TABLE Task_Users_{groupid};
+DROP TABLE Task_Roles_{groupid};
+DROP TABLE Task_Tags_{groupid};
+DROP TABLE Roles_{groupid};
+DROP TABLE Tags_{groupid};
+DROP TABLE Comments_{groupid};
+DROP TABLE Tasks_{groupid};

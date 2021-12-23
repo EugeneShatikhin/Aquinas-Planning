@@ -1,0 +1,5 @@
+CREATE TRIGGER NewTask_{groupid} ON Tasks_{groupid}
+AFTER INSERT AS BEGIN
+DECLARE @userid bigint = (SELECT author_id FROM inserted);
+DECLARE @taskid bigint = (SELECT task_id FROM inserted);
+INSERT INTO Task_Users_{groupid} VALUES(@userid, @taskid) END 
